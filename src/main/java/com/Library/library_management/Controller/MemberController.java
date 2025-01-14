@@ -15,35 +15,35 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    // ÜYE EKLEME (CREATE)
+    // ADD MEMBER (CREATE)
     @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody Member member){
         Member createMember = memberService.createMember(member);
         return ResponseEntity.ok(createMember);
     }
 
-    // TÜM ÜYELERİ LİSTELEME (READ)
+    // LIST ALL MEMBERS (READ)
     @GetMapping
     public ResponseEntity<List<Member>> getAllMembers(){
         List<Member> members = memberService.getAllMembers();
         return ResponseEntity.ok(members);
     }
 
-    // İD E GÖRE ÜYE GETİRME (READ)
+    // GETTING A MEMBER BY ID (READ)
     @GetMapping("/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id ){
         Member member = memberService.getMemberById(id);
         return ResponseEntity.ok(member);
     }
 
-    // ÜYE GÜNCELLEME
+    //  MEMBER UPDATE
     @PutMapping("/{id}")
     public ResponseEntity<Member> updateMember(@PathVariable Long id, @RequestBody Member memberDetails) {
         Member updatedMember = memberService.updateMember(id, memberDetails);
         return ResponseEntity.ok(updatedMember);
     }
 
-    // ÜYE SİLME ( DELETE)
+    // MEMBER DELETE ( DELETE)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMember(@PathVariable Long id) {
         boolean isDeleted = memberService.deleteMember(id);

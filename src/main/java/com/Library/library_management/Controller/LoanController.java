@@ -14,50 +14,50 @@ public class LoanController {
     @Autowired
     private LoanService loanService;
 
-    // Tüm ödünç alınan kitapları listeleme
+    // LİST ALL BORROWED BOKKS
     @GetMapping
     public ResponseEntity<List<Loan>> getAllLoans() {
         List<Loan> loans = loanService.getAllLoans();
         return ResponseEntity.ok(loans);
     }
 
-    // ID'ye göre bir ödünç kitap almak
+    // BORROWİNG A BOOK BY ID
     @GetMapping("/{id}")
     public ResponseEntity<Loan> getLoanById(@PathVariable Long id) {
         Loan loan = loanService.getLoanById(id);
         if (loan != null) {
             return ResponseEntity.ok(loan);
         } else {
-            return ResponseEntity.notFound().build();  // Eğer loan bulunamazsa
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Yeni bir ödünç kitap ekleme
+    // ADDİNG A NEW LOANER BOKK
     @PostMapping
     public ResponseEntity<Loan> createLoan(@RequestBody Loan loan) {
         Loan createdLoan = loanService.createLoan(loan);
         return ResponseEntity.status(201).body(createdLoan);  // 201 Created
     }
 
-    // Ödünç kitap güncelleme
+    // UPDATE LOAN BOOKS
     @PutMapping("/{id}")
     public ResponseEntity<Loan> updateLoan(@PathVariable Long id, @RequestBody Loan loanDetails) {
         Loan updatedLoan = loanService.updateLoan(id, loanDetails);
         if (updatedLoan != null) {
             return ResponseEntity.ok(updatedLoan);
         } else {
-            return ResponseEntity.notFound().build();  // Eğer loan bulunamazsa
+            return ResponseEntity.notFound().build();
         }
     }
 
-    // Ödünç kitap silme
+    // DELETİNG A LOANED BOOK
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLoan(@PathVariable Long id) {
         boolean isDeleted = loanService.deleteLoan(id);
         if (isDeleted) {
             return ResponseEntity.noContent().build();  // 204 No Content
         } else {
-            return ResponseEntity.notFound().build();  // Eğer loan bulunamazsa
+            return ResponseEntity.notFound().build();
         }
     }
 }

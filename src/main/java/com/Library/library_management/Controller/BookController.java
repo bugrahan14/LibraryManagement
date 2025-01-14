@@ -15,7 +15,7 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    // KİTAP EKLEME (CREATE)
+    //  ADD BOOK (CREATE)
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody Book book){
 
@@ -23,7 +23,7 @@ public class BookController {
         return ResponseEntity.ok(savedBook);
     }
 
-    // TÜM KİTAPLARI LİSTELEME (READ)
+    //  LIST ALL BOOKS (READ)
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks(){
         List<Book> books = bookService.getAllBooks();
@@ -31,7 +31,7 @@ public class BookController {
 
     }
 
-    // İD E GÖRE KİTAP GETİRME (READ)
+    //  BRINGING BOOKS BY ID (READ)
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id){
         Book book = bookService.getBookById(id);
@@ -39,31 +39,31 @@ public class BookController {
             return  ResponseEntity.ok(book); // 200 OK
         }
         else{
-            return ResponseEntity.notFound().build(); // KİTAP BULUNAMAZSA HTTP 404 DÖNER
+            return ResponseEntity.notFound().build(); // IF BOOK NOT FOUND HTTP 404 RETURNS
         }
     }
 
-    // KİTAP GÜNCELLEME (UPDATE)
+    //  BOOK UPDATE (UPDATE)
     @PutMapping("/{id}")
     public  ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book bookDetails) {
-        // URL'deki {id} ve istekte gelen JSON bilgileri alınır.
+        // The {id} in the URL and the JSON information received in the request are retrieved.
         Book updatedBook = bookService.updateBook(id, bookDetails);
         if (updatedBook != null) {
-            return ResponseEntity.ok(updatedBook); // HTTP 200 (OK) ile döner.
+            return ResponseEntity.ok(updatedBook); // HTTP 200 (OK)
         } else {
-            return ResponseEntity.notFound().build(); // 404 (Not Found) döner.
+            return ResponseEntity.notFound().build(); // 404 (Not Found)
         }
     }
 
-    // KİTAP SİLME (DELETE)
+    // BOOK DELETE (DELETE)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        // URL'deki {id} kısmı alınır.
+        // The {id} part of the URL is taken
         boolean isDeleted = bookService.deleteBook(id);
         if (isDeleted) {
-            return ResponseEntity.noContent().build();// HTTP 204 (No Content) döner.
+            return ResponseEntity.noContent().build();// HTTP 204 (No Content)
         } else {
-            return ResponseEntity.notFound().build(); // HTTP 404 (Not Found) döner.
+            return ResponseEntity.notFound().build(); // HTTP 404 (Not Found)
         }
     }
 
